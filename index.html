@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Image Rating</title>
+    <link rel="icon" type="image/png" href="lgo.png">
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <script src="./jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="./rating.js"></script>
+    <link href="./rating.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="notranslate">
+
+    <div id="div_start_error" style="background:red;color:black;font-size:2.2vw;display:none;position:absolute;z-index:100;opacity:0.8;" onclick="$('#div_start_error').hide()">Server connection failed. The page will work, but your end
+        results can only be saved manually. If this is live testing, you might want to contact lkcsgaspar@gmail.com. (Click on this text to close it.)</div>
+
+    <div id="div_end_error" style="background:red;color:black;font-size:2.2vw;display:none;position:absolute;z-index:100;" onclick="dl_as_file()">Data cannot be saved on the server. <b>Click anywhere on this text to save your data manually.</b>
+        (You must allow pop-ups.) If this is live testing, send the data to claudia.kawai@univie.ac.at (or contact in case of further issues).</div>
+
+    <div id="consent">
+        <h1>Information and Consent</h1>
+
+        <p><b>Aim:</b>
+            <br>A picture is worth a thousand words - and can be understood around the globe. With your help, we are creating a silhouette database. You will be shown black and white images, and you will need to rate each image. Your participation
+            enables researchers and others interested to use standardized and representative
+            research material.</p>
+
+        <p><b>Payment:</b>
+            <br>
+            The task takes around 15-20 minutes.
+            <span id="pay_info">
+                <b>
+                    We could not detect your Prolific ID!
+                </b> Therefore we will assume that this is a voluntary testing and you will not receive payment. If you are trying to do this test as a job via Prolific and want to be
+                compensated, you should open the proper link provided.
+            </span>
+        </p>
+
+        <p><b>Health Risks:</b>
+            <br>Some of the images we are about to show you may be explicit and can depict violence or erotica. However, there are no known physical or psychological risks associated with participating in this study. </p>
+
+        <p><b>Your Rights:</b>
+            <br>You can stop participating in the study at any time without giving a reason (by closing or refreshing this website). In this case, all recorded data will be fully deleted. You can also skip answers during the test, if, for example,
+            you
+            were not sure what you saw on a given image. However, please do not skip too many; we reserve the right to refuse payment in case of a large amount of skipped images. If you would like to know the
+            results of the study, please contact the
+            experimenter
+            (claudia.kawai@univie.ac.at).</p>
+
+        <p><b>Anonymity and Privacy:</b>
+            <br>The results of the study are used and published for research purposes. The data do not provide any information about you personally. You will not be named and your identity will be kept strictly confidential. Even after you have
+            participated (until publication), you can prohibit the use of your data.</p>
+
+        <p><b>Consent:</b>
+            <br>By clicking the "Consent & Continue" button, you declare that you have read and understood the information above. You confirm that you will be concentrating on the tasks and complete them to the best of your abilities. You agree
+            to
+            participating in this study and the subsequent analysis of your data by authorized personnel.</p>
+        <br>
+        <button type="button" id="consent_button" class="kbutt" onclick='consented();'>Consent & Continue</button>
+    </div>
+
+    <div id="loading_id" style="font-size:3.2vw;text-align:center">
+        <br>
+        <br>
+        LOADING...
+    </div>
+
+    <div id="intro">
+        <h3>Instructions</h3>
+        We will show you around 160 silhouettes in black and white, like, for example, the following:
+        <br>
+        <img id='example1_id' src="" alt="-- image 1 not loaded --">
+        <img id='example2_id' src="" alt="-- image 2 not loaded --">
+        <img id='example3_id' src="" alt="-- image 3 not loaded --">
+        <br>
+        Each silhouette will be presented for only a short period of time (2 seconds), so please pay close attention! After the 2 seconds have passed, the silhouette will be replaced with a rating scale. <br>
+        <br>
+        <span id="val_intro" style="display:none">Use the scale to rate the valence (positivity/negativity) of the image. Negative valence means that something is unpleasant or bad. Positive valence means that something is pleasant or good.
+        </span>
+        <span id="aro_intro" style="display:none">Use the scale to rate the arousal (low affective/high affective) of the image. Low arousal means that something is calm, tranquil or unexciting. High arousal means that something is intense,
+            exciting or exhilarating.</span>
+        <br>
+        <br>
+        To give your rating on the scale, move the mouse cursor over the respective scale and click for the slider to appear. Now you can move the slider to the position that you think fits your evaluation best, via clicking or dragging. After
+        selecting
+        a value on each scale, the "Submit" button appears below. When you are satisfied with your
+        choice, click the "Submit" button. Then the next image will appear, and so on. If you do not want to give a rating for an image, click "Continue without rating" and then
+        "Submit".
+        <br>
+        <br>
+        <b>You can give your ratings quickly and intuitively. Do not overthink it!</b>
+        <br>
+        <br>
+        Please make sure you have your browser in fullscreen mode (press F11 for Windows or Linux, or Control+Cmd+F for Mac).
+        <br>
+        <br>
+        <div class="load_screen">
+            <i>Loading images! Please wait.</i>
+        </div>
+        <div class="start_button">
+            <button type="button" class="kbutt" onclick="starttask();">Start</button>
+        </div>
+
+    </div>
+
+    <div id="rating">
+        <div id="stimulus">
+            <canvas id="rate_canvas" width="300" height="300"></canvas>
+            <br>
+        </div>
+
+        <div id="rating_actual" style="display:none">
+            <br>
+            <p>Please rate the image you were shown.</p>
+            <br>
+            <br>
+            <div id="container">
+                <div id="scale_container">
+                    <br><br>
+                    <br><br><br>
+                    <!-- VALENCE SCALE -->
+                    <div id="valencefull_id">
+                        <input type="range" min="1" max="9" value="5" class="slider" id="valence_id">
+                        <div class="sliderticks">
+                            <p>Very Negative</p>
+                            <p></p>
+                            <p>Somewhat Negative</p>
+                            <p></p>
+                            <p>Neutral</p>
+                            <p></p>
+                            <p>Somewhat Positive</p>
+                            <p></p>
+                            <p>Very Positive</p>
+                        </div>
+                        <!--<p>Value selected: <span id="display_v"></span></p>-->
+                    </div>
+
+                    <div id="arousalfull_id">
+                        <!-- AROUSAL SCALE -->
+                        <input type="range" min="1" max="9" value="5" class="slider" id="arousal_id">
+                        <div class="sliderticks">
+                            <p>Very Low</p>
+                            <p></p>
+                            <p>Somewhat Low</p>
+                            <p></p>
+                            <p>Neither Low nor High</p>
+                            <p></p>
+                            <p>Somewhat High</p>
+                            <p></p>
+                            <p>Very High</p>
+                        </div>
+                        <!--<p>Value selected: <span id="display_a"></span></p>-->
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:20px">
+                    <button class="kbutt" id="submit_button">Submit</button>
+                    <br>
+                    <hr>
+                    <button class="kbutt" style="padding: 8px;" onclick="skip()">Continue without rating</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="attention_check">
+        This is a short attention test. Please select from the list below what was depicted on the last image you were shown:
+        <br>
+        <br>
+        <input type="radio" name="acheck" value="1"> apple <br>
+        <br>
+        <input type="radio" name="acheck" value="2"> baby <br>
+        <br>
+        <input type="radio" name="acheck" value="3"> car <br>
+        <br>
+        <input type="radio" name="acheck" value="4"> dog <br>
+        <br>
+        <input type="radio" name="acheck" value="5"> egg <br>
+        <br>
+        <input type="radio" name="acheck" value="6"> forest <br>
+        <br>
+        <input type="radio" name="acheck" value="7"> gun <br>
+        <br>
+        <input type="radio" name="acheck" value="8"> hat <br>
+        <br>
+        <br>
+        <button type="button" class="kbutt" onclick="$('#attention_check').hide();$('#intermission').show();">Submit</button>
+    </div>
+
+    <div id="intermission">
+        Thank you. In this last very short phase, please rate again a few images that you already rated. This is to assess the reliability of your responses.
+        <br>
+        <br>
+        <div class="load_screen">
+            <i>Loading images! Please wait.</i>
+        </div>
+        <div class="start_button">
+            <button type="button" class="kbutt" onclick="starttask();">Start</button>
+        </div>
+
+    </div>
+
+    <div id="Bye">
+        <h1>Thank you for your participation!</h1>
+
+        <div id="passw_container">
+            <b>
+                <h3>Please use the following Prolific completion link:</h3>
+                <span style="color:red" id="passw_display"></span>
+            </b>
+            <br>
+        </div>
+        <br>
+        <br>
+        If you have any questions regarding the study, contact claudia.kawai@univie.ac.at
+        <br>
+        <br>
+        If you have any technical issues with (or questions about) the website, contact gaspar.lukacs@univie.ac.at
+        <br>
+
+    </div>
+
+</body>
