@@ -11,14 +11,6 @@ img {
     padding: 20px;
 }
 
-table {
-    margin: 0px auto;
-}
-
-td {
-    padding: 5px 15px;
-}
-
 #title {
     text-align: center;
 }
@@ -28,22 +20,18 @@ td {
     font-size: 22px;
 }
 
-#contin {
-    display: none;
-    position: absolute;
-    font-size: 25px;
-    left: 0;
-    top: 25%;
-    width: 100%;
-    text-align: center;
-}
-
 #demographics, #intro, #intermission, #attention_check {
     display: none;
     position: relative;
     text-align: center;
     top: 25px;
     font-size: 28px;
+}
+
+.kbutdis {
+    font-size: 25px;
+    padding: 16px;
+    border: 2px solid #2e2e2e;
 }
 
 .kbutt {
@@ -74,19 +62,17 @@ input[type=number] {
     font-size: 25px;
 }
 
-#stimulus_rate {
-    position: absolute;
-    top: 25%;
-    left: 40%;
-}
-
 #Thank, #Bye, #load_screen {
     display: none;
     position: absolute;
     left: 0;
-    top: 25%;
+    top: 20%;
     width: 100%;
     text-align: center;
+}
+
+#Bye {
+    font-size: 22px;
 }
 
 #div_main {
@@ -95,10 +81,19 @@ input[type=number] {
     display: none;
 }
 
-#stimulus {
-    position: absolute;
-    width: 90%;
+#fixate {
+    font-size: 50px;
+    position: relative;
+    left: 50%;
     top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#stimulus {
+    height: 300px;
+    width: 300px;
+    position: absolute;
+    top: 35%;
     left: 50%;
     margin: 0;
     margin-right: -50%;
@@ -106,8 +101,13 @@ input[type=number] {
 }
 
 #container {
-    width: 500px;
-    margin: 0 auto;
+    position: absolute;
+    width: 450px;
+    top: 68%;
+    left: 50%;
+    margin: 0;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
 
 #scale_container {
