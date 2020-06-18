@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-var experiment_title = 'silhu_pro';
+var experiment_title = 'silhu_ch';
 
 $(document).ready(() => {
     userid_check();
@@ -276,9 +276,9 @@ function upload() {
 
 function userid_check() {
     window.params = new URLSearchParams(location.search);
-    window.userid = params.get('PROLIFIC_PID');
+    window.userid = params.get('USER_ID');
     if (userid != null) {
-        $("#pay_info").html("Completed and valid participation will be rewarded with 2.17 GBP via Prolific. (Your Prolific ID was identified as <i>" + userid + '</i>. You will receive a corresponding completion link at the end of the experiment.) Please note that we may refuse payment if you pay no attention to the task, give random responses and fail on attention checks.');
+        $("#pay_info").html("Completed and valid participation will be rewarded with XXX. (Your User ID was identified as <i>" + userid + '</i>. You will receive a corresponding completion link at the end of the experiment.) Please note that we may refuse payment if you pay no attention to the task, give random responses and fail on attention checks.');
     } else {
         window.userid = "noid";
         $("#passw_container").hide();
