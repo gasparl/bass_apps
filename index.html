@@ -47,22 +47,24 @@
             <br>单击“同意 & 继续”按钮，表明您已阅读并理解了以上信息，且同意研究人员对您的实验数据进行分析。请您尽量专注于本测试并尽可能完成测试。</p>
         <br>
         <button type="button" id="consent_button" class="kbutt" onclick='consented();'>同意 & 继续</button>
+        <br>
+        <br>
+        如果您不同意，请按下面的按钮。
+        <br>
+        <button type="button" id="consent_button" class="kbutt" onclick='screenout("nocons");'>未同意</button>
     </div>
 
     <div id="demographics">
-        <h1>人口统计学数据</h1>
-        <br>
         <h3>请您提供以下信息:</h3>
-        <br>
         <p><b>性别:</b></p>
-        <input type="radio" name="gender" class="dem_form" value="1"> 男性
-        <input type="radio" name="gender" class="dem_form" value="2"> 女性
+        <input type="radio" name="s_gender" class="dem_form" value="1"> 男性
+        &nbsp&nbsp&nbsp&nbsp<input type="radio" name="s_gender" class="dem_form" value="2"> 女性
 
         <p><b>年龄:</b></p>
-        <input type="number" value="" min="1" max="120" class="dem_form" id="age"><br>
+        <input type="number" value="" class="dem_form" id="s_age"><br>
 
         <p><b>现居地:</b></p>
-        <select id="country" style="text-transform: capitalize;" class="dem_form">
+        <select id="s_country" style="text-transform: capitalize; font-size: 22px;" class="dem_form">
             <option value="">-</option>
             <option value="Macau">澳门</option>
             <option value="HK">香港</option>
@@ -81,6 +83,7 @@
         <br>
 
         <button type="button" class="kbutt" onclick="save_demo();">提交</button>
+        <br>
     </div>
 
     <div id="intro">
@@ -104,7 +107,7 @@
         <b>请您尽量快速直观地做出的评定，不需要过度思考。</b>
         <br>
         <br>
-        请按F11 或 CTRL-CMD-F（MacOS）,将该实验页面设置为全屏模式。
+        如果你的浏览器还没有进入全屏模式，请将其设置为全屏（Windows或Linux下按F11，Mac下按Control+Cmd+F）。
         <br>
         <br>
         <div class="load_screen">

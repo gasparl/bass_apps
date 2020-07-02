@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
 var experiment_title = 'silhu_ch';
-let fixed_cond = 0;  // TODO different for each link
+let fixed_cond = 0; // TODO different for each link
 
 $(document).ready(() => {
     userid_check();
@@ -61,8 +61,10 @@ function set_cond() {
 
 function start_php() {
     $.post("starter.php", function(resp) {
-            if (resp == "IP") {
-                $('#loading_id').html("It seems that you have completed this test once already.<br><br>If you believe this is a mistake, or if you perhaps want to do the experiment again without earning compensation, just write us an email.");
+            console.log(resp);
+            if (resp == "neverIP") {
+                $('#consent').html("It seems that you have completed this test once already.");
+                $('#consent').show();
             } else {
                 select_condition(resp);
                 condition = parseInt(condition);
@@ -89,9 +91,42 @@ function start_php() {
 
 function consented() {
     $("#consent").hide();
-    $("#intro").show();
+    open_fulls();
+    $("#demographics").show();
     window.scrollTo(0, 0);
     window.consent_now = Date.now();
+}
+
+let init_dems = "";
+
+function save_demo() {
+    $("#demographics").hide();
+    let s_age = $("#s_age").val();
+    let s_sex = $('input[name=s_gender]:checked').val();
+    let s_loc = $("#s_country").val();
+    if (s_loc == 'mainland' && s_age > 17 && s_age < 96) {
+        init_dems = s_age + '/' + s_sex;
+        $("#intro").show();
+        window.scrollTo(0, 0);
+    } else {
+        init_dems = s_age + '/' + s_sex + '/' + s_loc;
+        screenout(init_dems);
+    }
+}
+
+function screenout(screeninfo) {
+    ratings = screeninfo;
+    window.f_name =
+        "screened_" +
+        experiment_title +
+        bw_or_wb +
+        "_" +
+        subject_id +
+        "_" + userid +
+        ".txt";
+    upload();
+    let endurl = "https://dkr1.ssisurveys.com/projects/end?rst=2&psid=" + userid;
+    window.location = endurl;
 }
 
 function neat_date() {
@@ -184,7 +219,6 @@ function shuffle(arr) {
 function starttask() {
     $("#intro").hide();
     $("#intermission").hide();
-    open_fulls();
     $("#rating").show();
     window.scrollTo(0, 0);
     next_pic_rate();
@@ -257,9 +291,9 @@ function upload() {
                 console.log(resp);
                 if (!resp.startsWith('http')) {
                     $('#div_end_error').show();
-                    $("#passw_display").html('THERE WAS AN ERROR! Please do not close this page but send the data (if you can) to lkcsgaspar@gmail.com');
+                    $("#passw_display").html('错误! 不要关闭此页面，而是将数据发送到lkcsgaspar@gmail.com。');
                 } else {
-                    let backlink = resp;
+                    let backlink = resp.replace('TOREPL', userid);
                     $("#passw_display").html('<a href=' + backlink + ' target="_blank">' + backlink + '</a>');
                 }
             }
