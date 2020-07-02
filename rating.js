@@ -255,6 +255,8 @@ function ending() {
             'list',
             'attention',
             'full_dur',
+            'age',
+            'gender',
             'pro_id'
         ].join('/') +
         '\t' + [
@@ -266,6 +268,7 @@ function ending() {
             listnums[0] + 1,
             $('input[name=acheck]:checked').val(),
             duration_full,
+            init_dems,
             userid
         ].join('/');
     window.f_name =
