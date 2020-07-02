@@ -257,7 +257,7 @@ function ending() {
             'full_dur',
             'age',
             'gender',
-            'pro_id'
+            'ps_id'
         ].join('/') +
         '\t' + [
             subject_id,
@@ -301,7 +301,7 @@ function upload() {
                         window.location = backlink;
                         setTimeout(() => {
                             $("#passw_display").html('<a href=' + backlink + ' target="_blank">' + backlink + '</a>');
-                        }, 1000);
+                        }, 5000);
                     }, 2000);
                 }
             }
@@ -310,8 +310,7 @@ function upload() {
             console.log(xhr);
             console.log(error);
             $('#div_end_error').show();
-            $("#passw_display").html('THERE WAS AN ERROR! Please do not close this page but send the data (if you can) to lkcsgaspar@gmail.com');
-            // $("#passw_display").html("<i>(server connection failed)</i>");
+            $("#passw_display").html('错误! 不要关闭此页面，而是将数据发送到lkcsgaspar@gmail.com。');
         });
 }
 
