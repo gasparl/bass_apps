@@ -1,14 +1,10 @@
 /*jshint esversion: 6 */
 
 var experiment_title = 'silhu_ch';
+let fixed_cond = 0;  // TODO different for each link
 
 $(document).ready(() => {
     userid_check();
-    let dropChoices = '';
-    countrs.forEach((word) => {
-        dropChoices += '<option value="' + word + '">' + word + '</option>';
-    });
-    $("#country").append(dropChoices);
     window.scrollTo(0, 0);
     detectmob();
     start_php();
@@ -73,18 +69,19 @@ function start_php() {
                 if (!all_conditions.includes(condition)) {
                     // for safety
                     console.log('resp', resp);
-                    console.log('condition', condition);
-                    console.log("Condition random!");
-                    condition = rchoice(all_conditions);
+                    console.log('wrong condition', condition);
                 }
+                condition = fixed_cond;
+                console.log('Fixed condition set! ', condition);
                 set_cond();
             }
         })
         .fail(function(xhr, status, error) {
             console.log(error);
             $('#div_start_error').show();
-            console.log("Connection failed. Random condition.");
-            condition = rchoice(all_conditions);
+            console.log("Connection failed.");
+            condition = fixed_cond;
+            console.log('Fixed condition set! ', condition);
             set_cond();
         });
 }
@@ -127,7 +124,7 @@ function getexamplepics() {
         example_imgs[filename].onload = () => {
             document.getElementById("example" + (ind + 1) + '_id').src = example_imgs[filename].src;
         };
-        example_imgs[filename].src = 'pics/' + filename;
+        example_imgs[filename].src = './silhou_pics/' + filename;
     });
 }
 
@@ -155,7 +152,7 @@ function getpicset() {
             images[filename].onload = () => {
                 promise.resolve();
             };
-            images[filename].src = 'pics/' + filename;
+            images[filename].src = './silhou_pics/' + filename;
         })(main_pics[i], promises[i] = $.Deferred());
     }
     $.when.apply($, promises).done(() => {
@@ -276,9 +273,9 @@ function upload() {
 
 function userid_check() {
     window.params = new URLSearchParams(location.search);
-    window.userid = params.get('USER_ID');
+    window.userid = params.get('psid');
     if (userid != null) {
-        $("#pay_info").html("Completed and valid participation will be rewarded with XXX. (Your User ID was identified as <i>" + userid + '</i>. You will receive a corresponding completion link at the end of the experiment.) Please note that we may refuse payment if you pay no attention to the task, give random responses and fail on attention checks.');
+        $("#pay_info").html("完成并有效的参与，将根据您与主办平台的安排获得奖励。");
     } else {
         window.userid = "noid";
         $("#passw_container").hide();
@@ -445,9 +442,6 @@ let browser = (function() {
     if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
     return M;
 })();
-
-
-var countrs = ["Austria", "Germany", "Switzerland", "Italy", "Hungary", "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burma", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Ivory Coast", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea ", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea ", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Swaziland", "Sweden", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"];
 
 let piclists = [
     [

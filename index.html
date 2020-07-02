@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <title>Silhouette Rating</title>
+    <title>形象评价</title>
     <link rel="icon" type="image/png" href="lgo.png">
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
@@ -25,9 +25,16 @@
         <br>
         <p><b>目的:</b>
             <br>一图胜千言，图片很容易被理解。在您的帮助下，我们将会创建一个轮廓图片数据库。您的参与将会给研究人员提供兼具标准化和代表性的研究材料。</p>
-        <br>
-        <p><b>PAYMENT:</b>
-            <br>该实验用时大约15—20分钟。</p>
+        <p>
+            <br>该实验用时大约15—20分钟。
+            <span id="pay_info">
+                <b>
+                    我们无法检测到您的用户ID!
+                </b>
+                因此，我们将认为这是一个自愿的测试，你将不会得到任何补偿。
+            </span>
+
+        </p>
         <br>
         <p><b>健康风险:</b>
             <br>我们向您展示的某些图片可能有暴力或色情内容。但是，参与这项研究不会带来任何的生理或心理风险。</p>
@@ -50,17 +57,28 @@
         <h3>请您提供以下信息:</h3>
         <br>
         <p><b>性别:</b></p>
-
         <input type="radio" name="gender" class="dem_form" value="1"> 男性
         <input type="radio" name="gender" class="dem_form" value="2"> 女性
+
         <p><b>年龄:</b></p>
         <input type="number" value="" min="1" max="120" class="dem_form" id="age"><br>
-        <p><b>国籍:</b></p>
+        <p><b>现居地:</b></p>
         <select id="country" style="text-transform: capitalize;" class="dem_form">
             <option value="">-</option>
+            <option value="mainland">中国大陆</option>
+            <option value="Macau">澳门</option>
+            <option value="HK">香港</option>
+            <option value="Taiwan">台湾</option>
+            <option value="America">美国</option>
+            <option value="Australia">澳大利亚</option>
+            <option value="Africa">非洲</option>
+            <option value="Europe">欧洲</option>
+            <option value="Other">其他</option>
         </select>
+
         <br>
         <br>
+
         <button type="button" class="kbutt" onclick="save_demo();">提交</button>
     </div>
 
@@ -74,16 +92,7 @@
         <br>
         每张轮廓图片只会在很短的时间（2秒）内显示。因此，请您集中注意力！2秒过后，将会出现对该轮廓图片的评定量表。
         <br>
-        <!--<span id="val_intro" style="display:none">Nutze die obere Skala, um die Valenz (Positivität/Negativität) des Bildes zu bewerten. Negative Valenz bedeutet, dass etwas unangenehm oder schlecht ist. Positive Valenz bedeutet, dass etwas angenehm
-      und gut ist. Nutze
-      die untere Skala, um anzugeben, wie klar du erkennen konntest, was generell auf dem Bild abgebildet war.</span>
-    <span id="aro_intro" style="display:none">Nutze die obere Skala, um das Arousal (niedrig affektiv/hoch affektiv) des Bildes zu bewerten. Niedriges Arousal bedeutet, dass etwas ruhig bzw. nicht aufregend ist. Hohes Arousal bedeutet, dass
-      etwas aufregend oder
-      intensiv ist. Nutze die untere Skala, um anzugeben, wie klar du erkennen konntest, was generell auf dem Bild abgebildet war.</span>
-    <span id="both_intro" style="display:none">Nutze die obere Skala, um die Valenz (Positivität/Negativität) des Bildes zu bewerten. Negative Valenz bedeutet, dass etwas unangenehm oder schlecht ist. Positive Valenz bedeutet, dass etwas
-      angenehm und gut ist. Nutze
-      die mittlere Skala, um das Arousal (niedrig affektiv/hoch affektiv) des Bildes zu bewerten. Niedriges Arousal bedeutet, dass etwas ruhig bzw. nicht aufregend ist. Hohes Arousal bedeutet, dass etwas aufregend oder intensiv ist. Nutze die
-      untere Skala, um anzugeben, wie klar du erkennen konntest, was generell auf dem Bild abgebildet war.</span> -->
+
         <span id="val_intro" style="display:none">使用评定量表来评价图片的情绪效价(积极 / 消极)。消极效价表示令人不愉快或感觉不好的图片，积极效价表示令人愉快或感觉好的图片。</span>
         <span id="aro_intro" style="display:none">使用评定量表来评价图片的情绪唤醒度(低唤醒 / 高唤醒)。低唤醒意味着图片的内容是平静的、宁静的或不令人兴奋的。高唤醒意味着图片的内容是强烈的、令人兴奋的或令人振奋的。</span>
         <br>
@@ -98,7 +107,7 @@
         <br>
         <br>
         <div class="load_screen">
-            <i>Loading images! Please wait.</i>
+            <i>正在加载图片! 请等待。</i>
         </div>
         <div class="start_button">
             <button type="button" class="kbutt" onclick="starttask();">开始</button>
@@ -203,7 +212,7 @@
         <br>
         <br>
         <div class="load_screen">
-            <i>Loading images! Please wait.</i>
+            <i>正在加载图片! 请等待。</i>
         </div>
         <div class="start_button">
             <button type="button" class="kbutt" onclick="starttask();">开始</button>
@@ -213,14 +222,13 @@
 
     <div id="Bye">
         <h1>非常感谢您的参与!</h1>
-        <br>
-        <!--<h1>Click the button below to get your reward from <i>prolific</i>.</h1>-->
-        <br>
-        <!-- below the green tickmark "&#10004;" will indicate successful uploading of the data for the lab experiment in Vienna -->
-        <span style="color:green;display:none;font-size:200%;" id='scs_id'>&#10004;</span>
+        <div id="passw_container">
+            <b>
+                <h3>使用下面的链接来验证您的参与</h3>
+                <span style="color:red" id="passw_display"></span>
+            </b>
+            <br>
+        </div>
     </div>
-    <!--<div class="start_button"
-     <button type="button" class="kbutt" onclick="___();">Get reward</button> %% redirect to prolific here onclick
-  </div>-->
 
 </body>
