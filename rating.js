@@ -26,7 +26,7 @@ function detectmob() {
         alert(
             "You are using a smartphone or tablet. In this phase there is no mobile version of the test available. \nUnfortunately you cannot do this experiment on your mobile device. \nStart the experiment again with a normal webbrowser on your computer."
         );
-        window.location = "https://labs-univie.sona-systems.com/exp_info.aspx?experiment_id=968";
+        window.location = "https://ssisurveys.com/";
     }
 }
 
@@ -91,7 +91,6 @@ function start_php() {
 
 function consented() {
     $("#consent").hide();
-    open_fulls();
     $("#demographics").show();
     window.scrollTo(0, 0);
     window.consent_now = Date.now();
@@ -106,6 +105,7 @@ function save_demo() {
     let s_loc = $("#s_country").val();
     if (s_loc == 'mainland' && s_age > 17 && s_age < 96) {
         init_dems = s_age + '/' + s_sex;
+        open_fulls();
         $("#intro").show();
         window.scrollTo(0, 0);
     } else {
@@ -292,9 +292,14 @@ function upload() {
                 if (!resp.startsWith('http')) {
                     $('#div_end_error').show();
                     $("#passw_display").html('错误! 不要关闭此页面，而是将数据发送到lkcsgaspar@gmail.com。');
-                } else {
+                } else if (userid != "noid") {
                     let backlink = resp.replace('TOREPL', userid);
-                    $("#passw_display").html('<a href=' + backlink + ' target="_blank">' + backlink + '</a>');
+                    setTimeout(() => {
+                        window.location = backlink;
+                        setTimeout(() => {
+                            $("#passw_display").html('<a href=' + backlink + ' target="_blank">' + backlink + '</a>');
+                        }, 1000);
+                    }, 2000);
                 }
             }
         )
