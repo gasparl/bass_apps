@@ -124,7 +124,7 @@ function getexamplepics() {
         example_imgs[filename].onload = () => {
             document.getElementById("example" + (ind + 1) + '_id').src = example_imgs[filename].src;
         };
-        example_imgs[filename].src = './silhou_pics/' + filename;
+        example_imgs[filename].src = 'silhou_pics/' + filename;
     });
 }
 
@@ -152,7 +152,7 @@ function getpicset() {
             images[filename].onload = () => {
                 promise.resolve();
             };
-            images[filename].src = './silhou_pics/' + filename;
+            images[filename].src = 'silhou_pics/' + filename;
         })(main_pics[i], promises[i] = $.Deferred());
     }
     $.when.apply($, promises).done(() => {
@@ -184,6 +184,7 @@ function shuffle(arr) {
 function starttask() {
     $("#intro").hide();
     $("#intermission").hide();
+    open_fulls();
     $("#rating").show();
     window.scrollTo(0, 0);
     next_pic_rate();
@@ -204,6 +205,7 @@ function next_pic_rate() {
     } else {
         $("#rating").hide();
         ending();
+        close_fulls();
         $("#Bye").show();
     }
 }
@@ -490,5 +492,47 @@ function select_condition(conds_received) {
             condition = groupkey;
             break;
         }
+    }
+}
+
+
+function open_fulls() {
+    try {
+        let elem = document.documentElement;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+            /* Firefox */
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+            /* Chrome, Safari and Opera */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            /* IE/Edge */
+            elem.msRequestFullscreen();
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+/* Close fullscreen */
+function close_fulls() {
+    try {
+        let elem = document.documentElement;
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            /* Firefox */
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            /* Chrome, Safari and Opera */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            /* IE/Edge */
+            document.msExitFullscreen();
+        }
+    } catch (err) {
+        console.log(err);
     }
 }

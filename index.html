@@ -20,13 +20,11 @@
 
     <div id="consent">
         <h1>知情同意书</h1>
-        <br>
         <h3>感谢您参与这项<i>轮廓图片评定</i>.</h3>
-        <br>
         <p><b>目的:</b>
             <br>一图胜千言，图片很容易被理解。在您的帮助下，我们将会创建一个轮廓图片数据库。您的参与将会给研究人员提供兼具标准化和代表性的研究材料。</p>
         <p>
-            <br>该实验用时大约15—20分钟。
+            该实验用时大约15—20分钟。
             <span id="pay_info">
                 <b>
                     我们无法检测到您的用户ID!
@@ -35,16 +33,16 @@
             </span>
 
         </p>
-        <br>
+
         <p><b>健康风险:</b>
             <br>我们向您展示的某些图片可能有暴力或色情内容。但是，参与这项研究不会带来任何的生理或心理风险。</p>
-        <br>
+
         <p><b>您的权利:</b>
             <br>您可以随时无理由停止参加本实验。如果您停止该实验，您的数据将被删除。您也可以在测评过程中跳过答案。如果您想了解研究结果，请联系实验者 (claudia.kawai@univie.ac.at)。</p>
-        <br>
+
         <p><b>匿名性与隐私:</b>
             <br>本实验研究结果仅限出于科学研究目的而被使用和发表。您的个人信息将被严格保密，使用和发表的数据中不会有您的个人信息。在研究结果发表以前，您可以要求禁止使用您的数据。</p>
-        <br>
+
         <p><b>知情同意:</b>
             <br>单击“同意 & 继续”按钮，表明您已阅读并理解了以上信息，且同意研究人员对您的实验数据进行分析。请您尽量专注于本测试并尽可能完成测试。</p>
         <br>
@@ -62,17 +60,20 @@
 
         <p><b>年龄:</b></p>
         <input type="number" value="" min="1" max="120" class="dem_form" id="age"><br>
+
         <p><b>现居地:</b></p>
         <select id="country" style="text-transform: capitalize;" class="dem_form">
             <option value="">-</option>
-            <option value="mainland">中国大陆</option>
             <option value="Macau">澳门</option>
             <option value="HK">香港</option>
             <option value="Taiwan">台湾</option>
-            <option value="America">美国</option>
-            <option value="Australia">澳大利亚</option>
-            <option value="Africa">非洲</option>
+            <option value="mainland">中国大陆</option>
+            <option value="Asia">其他（亚洲）</option>
+            <option value="NAmerica">北美洲</option>
+            <option value="SAmerica">南美洲</option>
             <option value="Europe">欧洲</option>
+            <option value="Oceania">大洋洲</option>
+            <option value="Africa">非洲</option>
             <option value="Other">其他</option>
         </select>
 
@@ -116,24 +117,22 @@
     </div>
 
     <div id="rating">
-
-        <div id="stimulus_rate">
+        <div id="stimulus">
             <canvas id="rate_canvas" width="300" height="300"></canvas>
             <br>
         </div>
 
         <div id="rating_actual" style="display:none">
-
+            <br>
             <p>请您为看到的图片评定。</p>
             <br>
+            <br>
             <div id="container">
-
                 <div id="scale_container">
                     <br><br>
-
+                    <br><br><br>
                     <!-- VALENCE SCALE -->
                     <div id="valencefull_id">
-                        <p><b>效价:</b></p>
                         <input type="range" min="1" max="9" value="5" class="slider" id="valence_id">
                         <div class="sliderticks">
                             <p>十分消极</p>
@@ -147,12 +146,10 @@
                             <p>十分积极</p>
                         </div>
                         <!--<p>Value selected: <span id="display_v"></span></p>-->
-                        <br>
                     </div>
 
                     <div id="arousalfull_id">
                         <!-- AROUSAL SCALE -->
-                        <p><b>唤醒度:</b></p>
                         <input type="range" min="1" max="9" value="5" class="slider" id="arousal_id">
                         <div class="sliderticks">
                             <p>很低</p>
@@ -166,23 +163,19 @@
                             <p>很高</p>
                         </div>
                         <!--<p>Value selected: <span id="display_a"></span></p>-->
-                        <br>
                     </div>
-
-                    <br>
-                    <br>
                 </div>
-                <br>
-                <br>
-                <button style="float:left" class="kbutt" onclick="skip()">不评定继续</button>
-                <button style="float:right" class="kbutt" id="submit_button">提交</button>
+                <div style="text-align:center;margin-top:20px">
+                    <button class="kbutt" id="submit_button">提交</button>
+                    <br>
+                    <hr>
+                    <button class="kbutt" style="padding: 8px;" onclick="skip()">不评定继续</button>
+                </div>
             </div>
         </div>
     </div>
 
-
     <div id="attention_check">
-        <!-- Das ist ein kurzer Aufmerksamkeitstest. Bitte gib an, was auf dem Bild abgebildet war, das dir gerade gezeigt wurde. -->
         这是一个简单的注意力测试。请从下面的列表中选择您看到的最后一张图片所展现的内容:
         <br>
         <br>
@@ -207,7 +200,6 @@
     </div>
 
     <div id="intermission">
-        <!--Vielen Dank! Zum Schluss bitten wir dich, einige der Bilder, die du gesehen hast, noch einmal zu bewerten. Das hilft uns später die Zuverlässigkeit deiner Antworten zu bestimmen. -->
         谢谢。在最后极短的阶段中，请对您已评定的少许图片进行再次评定，这是为了评价您反应的可靠性。
         <br>
         <br>
@@ -222,6 +214,7 @@
 
     <div id="Bye">
         <h1>非常感谢您的参与!</h1>
+
         <div id="passw_container">
             <b>
                 <h3>使用下面的链接来验证您的参与</h3>
@@ -229,6 +222,11 @@
             </b>
             <br>
         </div>
+        <br>
+        <br>
+        如果您对该研究有任何疑问，请联系：claudia.kawai@univie.ac.at。
+        <br>
+        <br>
     </div>
 
 </body>
