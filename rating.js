@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-var experiment_title = 'silhu_ch';
+var experiment_title = 'silhu_dyn';
 let fixed_cond = 0; // TODO different for each link
 
 $(document).ready(() => {
@@ -115,14 +115,12 @@ function save_demo() {
 }
 
 function screenout(screeninfo) {
-    ratings = screeninfo;
+    ratings = screeninfo + "/" + userid;
     window.f_name =
         "screened_" +
         experiment_title +
-        bw_or_wb +
         "_" +
         subject_id +
-        "_" + userid +
         ".txt";
     upload();
     let endurl = "https://dkr1.ssisurveys.com/projects/end?rst=2&psid=" + userid;
@@ -273,10 +271,8 @@ function ending() {
         ].join('/');
     window.f_name =
         experiment_title +
-        bw_or_wb +
         "_" +
         subject_id +
-        "_" + userid +
         ".txt";
     upload();
 }
