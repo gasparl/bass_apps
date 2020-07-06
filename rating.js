@@ -290,7 +290,7 @@ function upload() {
                 console.log(resp);
                 if (!resp.startsWith('http')) {
                     $('#div_end_error').show();
-                    $("#passw_display").html('错误! 不要关闭此页面，而是将数据发送到lkcsgaspar@gmail.com。');
+                    $("#passw_display").html('错误!');
                 } else if (userid != "noid") {
                     let backlink = resp.replace('TOREPL', userid);
                     setTimeout(() => {
@@ -306,7 +306,7 @@ function upload() {
             console.log(xhr);
             console.log(error);
             $('#div_end_error').show();
-            $("#passw_display").html('错误! 不要关闭此页面，而是将数据发送到lkcsgaspar@gmail.com。');
+            $("#passw_display").html('错误!');
         });
 }
 
