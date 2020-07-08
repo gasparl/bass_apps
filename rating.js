@@ -314,7 +314,7 @@ function userid_check() {
     window.params = new URLSearchParams(location.search);
     window.userid = params.get('psid');
     if (userid != null) {
-        $("#pay_info").html("完成并有效的参与，将根据您与主办平台的安排获得奖励。");
+        $("#pay_info").html("完成并有效的参与，将根据主办平台的安排获得奖励。");
     } else {
         window.userid = "noid";
         $("#passw_container").hide();
