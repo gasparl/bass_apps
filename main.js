@@ -11,13 +11,9 @@ let basic_times = {};
 let isi_delay_minmax = [actual_isi_delay_minmax[0] - raf_warmup, actual_isi_delay_minmax[1] - raf_warmup];
 
 $(document).ready(() => {
-    userid_check();
     window.scrollTo(0, 0);
     canvas = document.getElementById('rate_canvas');
     ctx = canvas.getContext('2d');
-    if (Math.random() < 0.5) {
-        switchkeys();
-    }
     detectmob();
     set_block_texts();
     $('#loading_id').hide();
@@ -25,16 +21,14 @@ $(document).ready(() => {
     loadpics();
 });
 
-let key_for_pos = 'i';
-let key_for_neg = 'e';
+let key_for_pos, key_for_neg;
 
-function switchkeys() {
-    let key_dict = {
-        key_for_pos: key_for_neg,
-        key_for_neg: key_for_pos
-    };
-    key_for_pos = key_dict[key_for_pos];
-    key_for_neg = key_dict[key_for_neg];
+if (Math.random() < 0.5) {
+    key_for_pos = 'i';
+    key_for_neg = 'e';
+} else {
+    key_for_pos = 'e';
+    key_for_neg = 'i';
 }
 
 function consented() {
@@ -84,12 +78,9 @@ let studcod = params.get('a');
 function ending() {
     document.getElementById('Bye').style.display = 'block';
     let duration_full = Math.round((Date.now() - consent_now) / 600) / 100;
-    if (lg_condition == 'bilingual') {
-        add_qa();
-    }
+
     full_data += 'dems\t' + [
             'subject_id',
-            'condition',
             'browser_name',
             'browser_version',
             'first_type',
@@ -98,12 +89,11 @@ function ending() {
         ].join('/') +
         '\t' + [
             subject_id,
-            lg_condition,
             browser[0],
             browser[1],
             first_type,
             duration_full,
-            userid
+            studcod
         ].join('/');
     window.f_name =
         experiment_title +
@@ -111,7 +101,7 @@ function ending() {
         subject_id +
         "_" +
         first_type +
-        "_" + userid +
+        "_" + studcod +
         ".txt";
     upload();
 }
@@ -335,10 +325,10 @@ function next_trial() {
         tooslow = 0;
         incorrect = 0;
         rt_start = 99999;
-        keys_code = "";
+        keys_code = "NA";
         trial_stim = teststim.shift();
         block_trialnum++;
-        can_start = true;
+        isi();
     } else {
         if ((crrnt_phase !== 'practice') || (practice_eval())) {
             blocknum++;
@@ -385,10 +375,10 @@ let crrnt_phase;
 
 function nextblock() {
     document.documentElement.style.cursor = 'auto';
+    // open_fulls(); // TODO: ADD
     if (blocknum <= 3) {
         block_trialnum = 0;
         if (blocknum == 1) {
-            open_fulls();
             crrnt_phase = 'practice';
             teststim = names_to_dicts(stim_practice);
         } else if (blocknum == 2) {
@@ -409,12 +399,13 @@ function nextblock() {
         // teststim = teststim.slice(-6); //
         rt_data_dict = {};
         $("#div_stimdisp").hide();
-        $('.pos_key').text(key_for_pos);
-        $('.neg_key').text(key_for_neg);
+        $('.pos_key').text(key_for_pos.toUpperCase());
+        $('.neg_key').text(key_for_neg.toUpperCase());
         $("#intro").show();
     } else {
         document.body.style.backgroundColor = '#fff';
         $("#div_stimdisp").hide();
+        ending();
         $("#Bye").show();
     }
 }
@@ -425,7 +416,7 @@ function runblock() {
     $("#div_stimdisp").show();
     document.documentElement.style.cursor = 'none';
     window.scrollTo(0, 0);
-    next_trial();
+    can_start = true;
 }
 
 $(document).ready(function() {
@@ -433,14 +424,14 @@ $(document).ready(function() {
         if (can_start === true && (es.code == 'Space' || es.keyCode == 32)) {
             can_start = false;
             $("#start_text").hide();
-            isi();
+            next_trial();
         }
     });
     $(document).keydown(function(e) {
         if (listen === true) {
             rt_start = now() - stim_start;
             if (rt_start < response_deadline) {
-                keys_code = e.code;
+                keys_code = e.key;
                 if (['e', 'i'].includes(keys_code)) {
                     clearTimeout(response_window);
                     listen = false;
