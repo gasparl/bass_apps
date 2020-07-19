@@ -1,0 +1,199 @@
+body {
+    background: #808080;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
+img {
+    padding: 20px;
+}
+
+#consent, #div_numpad, #div_intro_general {
+    display: none;
+    background: #f1f1f1;
+    font-size: 22px;
+    padding: 40px;
+}
+
+#intro {
+    display: none;
+    position: relative;
+    text-align: center;
+    top: 25px;
+    font-size: 28px;
+}
+
+.kbutdis {
+    font-size: 25px;
+    padding: 16px;
+    border: 2px solid #2e2e2e;
+}
+
+.kbutt {
+    font-size: 25px;
+    padding: 16px;
+    border: 2px solid #2e2e2e;
+    transition-duration: 0.4s;
+}
+
+.kbutt:hover {
+    background-color: #2e2e2e;
+    color: white;
+}
+
+input[type=radio] {
+    width: 20px;
+    height: 20px;
+}
+
+input[type=number] {
+    width: 70px;
+    height: 30px;
+    font-size: 25px;
+}
+
+#Bye, #load_screen {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 20%;
+    width: 100%;
+    text-align: center;
+}
+
+#Bye {
+    font-size: 22px;
+}
+
+#div_stimdisp {
+    font-family: "Arial";
+    color: #FFFFFF;
+    display: none;
+}
+
+#stimulus, #warn_id {
+    height: 300px;
+    width: 300px;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    margin: 0;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+#warn_id {
+    color: #000;
+    font-style: italic;
+    display: none;
+    text-align: center;
+    line-height: 300px;
+    font-size: 40px;
+}
+
+#tooslow, #false {
+    width: 30%;
+    color: #000;
+    text-align: center;
+    font-size: 4.0vw;
+    position: fixed;
+    margin: 0;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    display: none;
+    left: 50%;
+    top: 60%;
+}
+
+#start_text {
+    text-align: center;
+    font-size: 3vw;
+    width: 70%;
+    position: fixed;
+    margin: 0;
+    top: 88%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    color: #000;
+}
+
+/* QUESTIONNAIRE */
+#questions {
+    display: none;
+    position: relative;
+    padding-left: 5%;
+    text-align: left;
+    top: 25px;
+    font-size: 28px;
+}
+
+#questions input[type=radio] {
+    width: 20px;
+    height: 20px;
+}
+
+#questions input[type=number] {
+    width: 70px;
+    height: 30px;
+    font-size: 25px;
+}
+
+#questions input[type=range] {
+    width: 400px;
+    height: 30px;
+    font-size: 25px;
+}
+
+#questions input {
+    width: 170px;
+    height: 30px;
+    font-size: 25px;
+}
+
+.birthlang_class .birthlang_class_age {
+    display: none;
+}
+
+.birthlang_class input[value="0"]:checked~.birthlang_class_age {
+    display: block;
+}
+
+.stop_chi_class .stop_chi_class_age {
+    pointer-events: none;
+}
+
+.stop_chi_class input[value="1"]:checked~.stop_chi_class_age {
+    pointer-events: auto;
+}
+
+.otherlang_class .otherlang_class_lang {
+    pointer-events: none;
+}
+
+.otherlang_class input[value="1"]:checked~.otherlang_class_lang {
+    pointer-events: auto;
+}
+
+.think_class .think_class_lang {
+    pointer-events: none;
+}
+
+.think_class input[value="1"]:checked~.think_class_lang {
+    pointer-events: auto;
+}
+
+#questions input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+}
+
+#questions select {
+    width: 250px;
+    height: 30px;
+    font-size: 25px;
+}
