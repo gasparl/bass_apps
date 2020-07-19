@@ -26,7 +26,7 @@ if (!file_exists($file_name)) {
 
 if (strlen($sid) > 5 and strlen($subject_results) > 1000) {
     if ($outcome > 1000 and substr($file_name, -4) === ".txt") {
-        echo "https://app.prolific.co/submissions/complete?cc=6AEC85FE";
+        echo "written";
     } else {
         if (is_file($file_name) === false) {
             echo "Failed to save file " . $file_name . "! Please do not close this page, but contact gaspar.lukacs@univie.ac.at! (" . $outcome . ")";

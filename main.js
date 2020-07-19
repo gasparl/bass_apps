@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-let experiment_title = 'distance_embod';
+let experiment_title = 'silhou_exp3';
 let canvas, ctx;
 let response_deadline = 2000;
 let tooslow_delay = 500;
@@ -77,11 +77,6 @@ function loadpics() {
         $(".start_button").show();
     });
 }
-
-
-let lex_outcomes = {};
-
-
 
 window.params = new URLSearchParams(location.search);
 let studcod = params.get('a');
