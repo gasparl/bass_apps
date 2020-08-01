@@ -63,6 +63,13 @@ function loadpics() {
                 promise.resolve();
             };
             images[filename].src = 'imgs/' + filename;
+            if (filename.endsWith('_p_bw.png')) {
+                images[filename].alt = "-- image not loaded --";
+                document.getElementById("pos_div").appendChild(images[filename]);
+            } else if (filename.endsWith('_n_bw.png')) {
+                images[filename].alt = "-- image not loaded --";
+                document.getElementById("neg_div").appendChild(images[filename]);
+            }
         })(all_file_names[i], promises[i] = $.Deferred());
     }
     $.when.apply($, promises).done(() => {
@@ -169,16 +176,16 @@ let block_texts = [];
 
 function set_block_texts() {
     block_texts.push(`
-        Well done. Now you you will have to do the same categorization in a longer block.
+        Well done. Now you you will have to do the same categorization in a longer block. The images are in different colors, but the responses should be the same as before regardless of the color of the image: Press the key <b>"<span class="pos_key"></span>"</b> when you see an <b>postive image</b>, and press <b>"<span class="neg_key"></span>"</b> when you see a <b>negative image</b>.
         <br>
         <br>
-        Remember: Press the key <b>"<span class="pos_key"></span>"</b> when you see an <b>postive image</b>, and press <b>"<span class="neg_key"></span>"</b> when you see a <b>negative image</b>.
+        Please try to be both fast and accurate.
     `);
     block_texts.push(`
-        Now comes the last block. The images are the same as in the previous main block, only they are in different colors.
+        Now comes the last block. The images are the same as in the previous main block, only they are in different colors. Again, the task is the same: Press the key <b>"<span class="pos_key"></span>"</b> when you see an <b>postive image</b>, and press <b>"<span class="neg_key"></span>"</b> when you see a <b>negative image</b>.
         <br>
         <br>
-        Remember: Press the key <b>"<span class="pos_key"></span>"</b> when you see an <b>postive image</b>, and press <b>"<span class="neg_key"></span>"</b> when you see a <b>negative image</b>.
+        Please try to be both fast and accurate.
     `);
 }
 
@@ -373,6 +380,7 @@ function add_response() {
 
 let crrnt_phase;
 
+let prc_num = 0;
 function nextblock() {
     document.documentElement.style.cursor = 'auto';
     // open_fulls(); // TODO: ADD
@@ -380,7 +388,8 @@ function nextblock() {
         block_trialnum = 0;
         if (blocknum == 1) {
             crrnt_phase = 'practice';
-            teststim = names_to_dicts(stim_practice);
+            teststim = names_to_dicts(stim_practice[prc_num]);
+            prc_num++;
         } else if (blocknum == 2) {
             if (first_type == 'color') {
                 crrnt_phase = 'colors';
