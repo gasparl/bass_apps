@@ -62,7 +62,7 @@ function loadpics() {
             images[filename].onload = () => {
                 promise.resolve();
             };
-            images[filename].src = 'imgs/' + filename;
+            images[filename].src = './imgs/' + filename;
             if (filename.endsWith('_p_bw.png')) {
                 images[filename].alt = "-- image not loaded --";
                 document.getElementById("pos_div").appendChild(images[filename]);
@@ -413,7 +413,7 @@ function nextblock() {
         $('.neg_key').text(key_for_neg.toUpperCase());
         $("#intro").show();
     } else {
-        document.body.style.backgroundColor = '#fff';
+        document.body.style.backgroundColor = '#ccc';
         $("#div_stimdisp").hide();
         ending();
         $("#Bye").show();

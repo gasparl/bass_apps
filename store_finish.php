@@ -13,7 +13,7 @@ if (!empty($_SERVER['HTTP_CLIENT_IP'])) {   //check ip from share internet
     $subj_ip=$_SERVER['REMOTE_ADDR'];
 }
 
-$file_name=('../silhou_uni_results/' . $_POST['filename_post']);
+$file_name=('../exp3_uni_results/' . $_POST['filename_post']);
 $subject_results = $_POST['results_post'];
 $sid = $_POST['sid_post'];
 $subj_group = $_POST['cond_post'];
@@ -39,6 +39,3 @@ if (strlen($sid) > 5 and strlen($subject_results) > 1000) {
 } else {
     echo 'Failed. Data not correct. If you believe this is an error, contact gaspar.lukacs@univie.ac.at';
 }
-
-
-mysqli_close($con);
