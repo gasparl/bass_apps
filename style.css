@@ -74,7 +74,7 @@ input[type=number] {
     display: none;
 }
 
-#stimulus, #warn_id {
+#stimulus {
     height: 300px;
     width: 300px;
     position: absolute;
@@ -83,15 +83,6 @@ input[type=number] {
     margin: 0;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-}
-
-#warn_id {
-    color: #000;
-    font-style: italic;
-    display: none;
-    text-align: center;
-    line-height: 300px;
-    font-size: 40px;
 }
 
 #tooslow, #false {
@@ -106,7 +97,7 @@ input[type=number] {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     display: none;
     left: 50%;
-    top: 60%;
+    top: 75%;
 }
 
 #start_text {
