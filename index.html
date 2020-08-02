@@ -29,6 +29,19 @@
 
     <div id="div_intro_general">
         <span id='intro_id'>
+            <h1>Demografische Daten</h1>
+            <br>
+            <h3>Bitte fülle die folgenden Angaben zu deiner Person aus:</h3>
+            <br>
+            <p><b>Geschlecht:</b></p>
+            <input type="radio" name="gender" class="dem_form" value="1"> Männlich
+            <input type="radio" name="gender" class="dem_form" value="2"> Weiblich
+            <p><b>Alter:</b></p>
+            <input type="number" value="" min="1" max="120" class="dem_form" id="age"><br>
+            <p><b>Herkunftsland:</b></p>
+            <select id="country" style="text-transform: capitalize;" class="dem_form">
+                <option value="">-</option>
+            </select>
             <br>
             <br>
             <br>
@@ -118,7 +131,6 @@
 
         <div id="stimulus">
             <canvas id="rate_canvas" width="300" height="300"></canvas>
-            <br>
         </div>
 
         <p id="start_text">Press Space to start.</p>
