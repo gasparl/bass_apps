@@ -13,7 +13,7 @@ function prep_prac() {
         pracs.push(it);
         pracs.push(pos_pics[i]);
     });
-    let prac_len = 8;
+    let prac_len = 10;
     let outp = pracs.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / prac_len);
         if (!resultArray[chunkIndex]) {

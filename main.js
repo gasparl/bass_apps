@@ -176,13 +176,13 @@ let block_texts = [];
 
 function set_block_texts() {
     block_texts.push(`
-        Well done. Now you you will have to do the same categorization in a longer block. The images are in different colors, but the responses should be the same as before regardless of the color of the image: Press the key <b>"<span class="pos_key"></span>"</b> when you see an <b>postive image</b>, and press <b>"<span class="neg_key"></span>"</b> when you see a <b>negative image</b>.
+        Well done. Now you you will have to do the same categorization in a longer block. The images are in different colors, but the responses should be the same as before regardless of the color of the image: Press the key <b>"<span class="pos_key"></span>"</b> when you see an <b>positive image</b>, and press <b>"<span class="neg_key"></span>"</b> when you see a <b>negative image</b>.
         <br>
         <br>
         Please try to be both fast and accurate.
     `);
     block_texts.push(`
-        Now comes the last block. The images are the same as in the previous main block, only they are in different colors. Again, the task is the same: Press the key <b>"<span class="pos_key"></span>"</b> when you see an <b>postive image</b>, and press <b>"<span class="neg_key"></span>"</b> when you see a <b>negative image</b>.
+        Now comes the last block. The images are the same as in the previous main block, only they are in different colors. Again, the task is the same: Press the key <b>"<span class="pos_key"></span>"</b> when you see an <b>positive image</b>, and press <b>"<span class="neg_key"></span>"</b> when you see a <b>negative image</b>.
         <br>
         <br>
         Please try to be both fast and accurate.
@@ -209,7 +209,7 @@ function names_to_dicts(thefilenames) {
             newdict.color = fname.split("_p_")[1];
         } else {
             newdict.valence = 'negative';
-            newdict.color = fname.split("_p_")[1];
+            newdict.color = fname.split("_n_")[1];
         }
         dict_list.push(newdict);
     });
@@ -292,11 +292,7 @@ function isi() {
 
 function practice_eval() {
     let min_ratio;
-    if (blocknum == 1) {
-        min_ratio = 0.51;
-    } else {
-        min_ratio = 1;
-    }
+    min_ratio = 0.8;
     let is_valid = true;
     let types_failed = [];
     for (let it_type in rt_data_dict) {
@@ -365,7 +361,7 @@ function add_response() {
         crrnt_phase,
         blocknum,
         block_trialnum,
-        trial_stim.name,
+        trial_stim.file,
         trial_stim.color,
         trial_stim.valence,
         keys_code,
@@ -381,6 +377,7 @@ function add_response() {
 let crrnt_phase;
 
 let prc_num = 0;
+
 function nextblock() {
     document.documentElement.style.cursor = 'auto';
     // open_fulls(); // TODO: ADD
@@ -390,6 +387,10 @@ function nextblock() {
             crrnt_phase = 'practice';
             teststim = names_to_dicts(stim_practice[prc_num]);
             prc_num++;
+            if (prc_num >= stim_practice.length) {
+                prc_num = 0;
+                console.log('Practice reset to zero!');
+            }
         } else if (blocknum == 2) {
             if (first_type == 'color') {
                 crrnt_phase = 'colors';
@@ -405,7 +406,7 @@ function nextblock() {
             }
             teststim = names_to_dicts(stim_main2);
         }
-        // teststim = teststim.slice(-6); //
+        teststim = teststim.slice(-6); // TODO: REMOVE
         rt_data_dict = {};
         $("#div_stimdisp").hide();
         $('.pos_key').text(key_for_pos.toUpperCase());
