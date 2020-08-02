@@ -29,19 +29,6 @@
 
     <div id="div_intro_general">
         <span id='intro_id'>
-            <h1>Demografische Daten</h1>
-            <br>
-            <h3>Bitte fülle die folgenden Angaben zu deiner Person aus:</h3>
-            <br>
-            <p><b>Geschlecht:</b></p>
-            <input type="radio" name="gender" class="dem_form" value="1"> Männlich
-            <input type="radio" name="gender" class="dem_form" value="2"> Weiblich
-            <p><b>Alter:</b></p>
-            <input type="number" value="" min="1" max="120" class="dem_form" id="age"><br>
-            <p><b>Herkunftsland:</b></p>
-            <select id="country" style="text-transform: capitalize;" class="dem_form">
-                <option value="">-</option>
-            </select>
             <br>
             <br>
             <br>
@@ -82,6 +69,25 @@
         <br>
 
         <button type="button" id="consent_button" class="kbutt" onclick='consented();'>I consent</button>
+    </div>
+
+    <div id="div_intro_dems">
+        <h2>Demografische Daten</h2>
+        <h3>Bitte fülle die folgenden Angaben zu deiner Person aus:</h3>
+        <p><b>Geschlecht:</b></p>
+        <input type="radio" name="gender" class="dem_form" value="1"> Männlich
+        <input type="radio" name="gender" class="dem_form" value="2"> Weiblich
+        <p><b>Alter:</b></p>
+        <input type="number" value="" min="1" max="120" class="dem_form" id="age"><br>
+        <p><b>Herkunftsland:</b></p>
+        <select id="country" style="text-transform: capitalize;height: 30px;font-size: 25px;" class="dem_form">
+            <option value="">-</option>
+        </select>
+        <br>
+        <br>
+        <br>
+        <button class="kbutt" onclick="validate_form('.dem_form')">OK</button>
+        <br>
     </div>
 
 

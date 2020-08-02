@@ -11,7 +11,7 @@ img {
     padding: 20px;
 }
 
-#consent, #div_intro_general {
+#consent, #div_intro_general, #div_intro_dems {
     display: none;
     background: #f1f1f1;
     font-size: 22px;

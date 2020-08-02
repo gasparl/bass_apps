@@ -37,8 +37,27 @@ function consented() {
     $("#consent").hide();
     window.scrollTo(0, 0);
     window.consent_now = Date.now();
-    nextblock();
+    $("#div_intro_dems").show();
 }
+
+
+let once_asked = false;
+
+function validate_form(form_class) {
+    if (once_asked === true || (
+            $('input[name=gender]:checked').val() != undefined &&
+            $("#age").val() != '' &&
+            $("#country").val() != '')) {
+        $("#div_intro_dems").hide();
+        window.scrollTo(0, 0);
+        nextblock();
+    } else {
+        once_asked = true;
+        alert("You did not give all Demografische Daten. Please consider giving them before moving on.");
+    }
+}
+
+function demson() {}
 
 function rchoice(array) {
     return array[Math.floor(array.length * Math.random())];
