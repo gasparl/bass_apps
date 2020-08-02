@@ -85,21 +85,6 @@ input[type=number] {
     transform: translate(-50%, -50%);
 }
 
-#tooslow, #false {
-    width: 30%;
-    color: #444;
-    text-align: center;
-    font-size: 4.0vw;
-    position: fixed;
-    margin: 0;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    display: none;
-    left: 50%;
-    top: 80%;
-}
-
 #start_text {
     text-align: center;
     font-size: 3vw;

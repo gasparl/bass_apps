@@ -2,9 +2,6 @@
 
 let experiment_title = 'silhou_exp3';
 let canvas, ctx;
-let response_deadline = 2000;
-let tooslow_delay = 500;
-let false_delay = 500;
 let actual_isi_delay_minmax = [300, 500];
 let raf_warmup = 100;
 let basic_times = {};
@@ -219,12 +216,11 @@ function names_to_dicts(thefilenames) {
 // the task
 
 let teststim,
-    tooslow,
-    incorrect,
+    incorrect = 0,
     block_trialnum,
     rt_data_dict,
     trial_stim,
-    keys_code;
+    keys_code = 'NA';
 let can_start = false;
 
 let correct_key = "none";
@@ -232,28 +228,6 @@ let blocknum = 1;
 let rt_start = 99999;
 let stim_start = 0;
 let listen = false;
-
-// too slow
-function flash_too_slow() {
-    $("#tooslow").show();
-    setTimeout(function() {
-        $("#tooslow").hide();
-        tooslow = 1;
-        keys_code = "x";
-        add_response();
-    }, tooslow_delay);
-}
-
-// false
-function flash_false() {
-    $("#false").show();
-    setTimeout(function() {
-        $("#false").hide();
-        incorrect = 1;
-        add_response();
-    }, false_delay);
-}
-
 
 function image_display(img_name) {
     if (trial_stim.valence == "positive") {
@@ -271,11 +245,6 @@ function image_display(img_name) {
             stim_start = now();
             warmup_needed = false;
             listen = true;
-            response_window = setTimeout(function() {
-                rt_start = now() - stim_start;
-                listen = false;
-                flash_too_slow();
-            }, response_deadline);
         });
     }, raf_warmup); // time needed for raF timing "warmup"
 }
@@ -325,10 +294,6 @@ let warn_set;
 
 function next_trial() {
     if (teststim.length > 0) {
-        tooslow = 0;
-        incorrect = 0;
-        rt_start = 99999;
-        keys_code = "NA";
         trial_stim = teststim.shift();
         block_trialnum++;
         isi();
@@ -344,34 +309,47 @@ function next_trial() {
     }
 }
 
-let full_data = ["subject_id", "phase", "block_number", "trial_number", "stimulus_shown", "color", "valence", "response_key", "rt_start", "incorrect", "too_slow", "isi", "date_in_ms"].join('\t') + '\n';
+let full_data = ["subject_id", "phase", "block_number", "trial_number", "resp_number", "stimulus_shown", "color", "valence", "response_key", "rt_start", "incorrect", "isi", "date_in_ms"].join('\t') + '\n';
+
+let resp_num = 1;
 
 function add_response() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
     let curr_type = trial_stim.valence;
     if (!(curr_type in rt_data_dict)) {
         rt_data_dict[curr_type] = [];
     }
-    if (incorrect == 1 || tooslow == 1) {
-        rt_data_dict[curr_type].push(-1);
-    } else {
-        rt_data_dict[curr_type].push(rt_start);
+    if (resp_num == 1) {
+        if (incorrect == 1) {
+            rt_data_dict[curr_type].push(-1);
+        } else {
+            rt_data_dict[curr_type].push(rt_start);
+        }
     }
     full_data += [subject_id,
         crrnt_phase,
         blocknum,
         block_trialnum,
+        resp_num,
         trial_stim.file,
         trial_stim.color,
         trial_stim.valence,
         keys_code,
         rt_start,
         incorrect,
-        tooslow,
         isi_delay + isi_delay_minmax[0] + raf_warmup,
         String(new Date().getTime())
     ].join('\t') + '\n';
-    next_trial();
+    rt_start = 99999;
+    keys_code = "NA";
+    if (incorrect == 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        resp_num = 1;
+        next_trial();
+    } else {
+        incorrect = 0;
+        listen = true;
+        resp_num++;
+    }
 }
 
 let crrnt_phase;
@@ -440,16 +418,14 @@ $(document).ready(function() {
     $(document).keydown(function(e) {
         if (listen === true) {
             rt_start = now() - stim_start;
-            if (rt_start < response_deadline) {
-                keys_code = e.key;
-                if (['e', 'i'].includes(keys_code)) {
-                    clearTimeout(response_window);
-                    listen = false;
-                    if (keys_code == correct_key) {
-                        add_response();
-                    } else {
-                        flash_false();
-                    }
+            keys_code = e.key;
+            if (['e', 'i'].includes(keys_code)) {
+                listen = false;
+                if (keys_code == correct_key) {
+                    add_response();
+                } else {
+                    incorrect = 1;
+                    add_response();
                 }
             }
         }
