@@ -392,7 +392,7 @@ let prc_num = 0;
 
 function nextblock() {
     document.documentElement.style.cursor = 'auto';
-    // open_fulls(); // TODO: ADD
+    open_fulls();
     if (blocknum <= 3) {
         block_trialnum = 0;
         if (blocknum == 1) {
@@ -418,7 +418,7 @@ function nextblock() {
             }
             teststim = names_to_dicts(stim_main2);
         }
-        teststim = teststim.slice(-6); // TODO: REMOVE
+        // teststim = teststim.slice(-6);
         rt_data_dict = {};
         $("#div_stimdisp").hide();
         $('.pos_key').text(key_for_pos.toUpperCase());
