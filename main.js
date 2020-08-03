@@ -154,7 +154,7 @@ function upload() {
                     $('#div_end_error').show();
                     $("#passw_display").html('EIN FEHLER IST AUFGETRETEN! Bitte schließe die Seite NICHT und sende deine Ergebnisdaten, wenn möglich, an lkcsgaspar@gmail.com, zusammen mit folgendem Code: ' + studcod);
                 } else {
-                    let backlink = 'https://labs-univie.sona-systems.com/webstudy_credit.aspx?experiment_id=986&credit_token=09ae7060d9324443bab14ea267704363&survey_code=' + studcod;
+                    let backlink = 'https://labs-univie.sona-systems.com/webstudy_credit.aspx?experiment_id=1001&credit_token=1e4f14a94e804d7db18d9a28ea8fffe7&survey_code=' + studcod;
                     $("#passw_display").html('<a href=' + backlink + ' target="_blank">' + backlink + '</a>');
                 }
             }
