@@ -152,7 +152,7 @@ function upload() {
                 console.log(resp);
                 if (resp.startsWith("Fail") || resp.startsWith("Warning")) {
                     $('#div_end_error').show();
-                    $("#passw_display").html('THERE IS AN ERROR! Please do not close this page but send the data (if you can) to lkcsgaspar@gmail.com, along with the following code: ' + studcod);
+                    $("#passw_display").html('EIN FEHLER IST AUFGETRETEN! Bitte schließe die Seite NICHT und sende deine Ergebnisdaten, wenn möglich, an lkcsgaspar@gmail.com, zusammen mit folgendem Code: ' + studcod);
                 } else {
                     let backlink = 'https://labs-univie.sona-systems.com/webstudy_credit.aspx?experiment_id=986&credit_token=09ae7060d9324443bab14ea267704363&survey_code=' + studcod;
                     $("#passw_display").html('<a href=' + backlink + ' target="_blank">' + backlink + '</a>');
@@ -163,7 +163,7 @@ function upload() {
             console.log(xhr);
             console.log(error);
             $('#div_end_error').show();
-            $("#passw_display").html('THERE IS AN ERROR! Please do not close this page but send the data (if you can) to lkcsgaspar@gmail.com, along with the following code: ' + studcod);
+            $("#passw_display").html('EIN FEHLER IST AUFGETRETEN! Bitte schließe die Seite NICHT und sende deine Ergebnisdaten, wenn möglich, an lkcsgaspar@gmail.com, zusammen mit folgendem Code: ' + studcod);
         });
 }
 
@@ -203,16 +203,20 @@ let block_texts = [];
 
 function set_block_texts() {
     block_texts.push(`
-        Well done. Now you you will have to do the same categorization in a longer block. The images are in different colors, but the responses should be the same as before regardless of the color of the image: Press the key <b>"<span class="pos_key"></span>"</b> when you see an <b>positive image</b>, and press <b>"<span class="neg_key"></span>"</b> when you see a <b>negative image</b>.
+        Sehr gut! Nun beginnt der erste der beiden Experimentalblöcke. Die Aufgabe bleibt gleich, aber die Bilder sind eingefärbt. Zur Erinnerung:<br>
+        <br>
+        Drücke <b>"<span class="pos_key"></span>"</b>, wenn das Bild etwas <b>Positives</b> zeigt.<br>Drücke <b>"<span class="neg_key"></span>"</b>, wenn das Bild etwas <b>Negatives</b> zeigt.
         <br>
         <br>
-        Please try to be both fast and accurate.
+        Bitte antworte sowohl schnell als auch korrekt.
     `);
     block_texts.push(`
-        Now comes the last block. The images are the same as in the previous main block, only they are in different colors. Again, the task is the same: Press the key <b>"<span class="pos_key"></span>"</b> when you see an <b>positive image</b>, and press <b>"<span class="neg_key"></span>"</b> when you see a <b>negative image</b>.
+        Nun folgt der letzte der beiden Experimentalblöcke. Die Farbe der Bilder ist erneut verändert, doch die Aufgabe bleibt gleich:
+        <br>
+        Drücke <b>"<span class="pos_key"></span>"</b>, wenn das Bild etwas <b>Positives</b> zeigt.<br>Drücke <b>"<span class="neg_key"></span>"</b>, wenn das Bild etwas <b>Negatives</b> zeigt.
         <br>
         <br>
-        Please try to be both fast and accurate.
+        Antworte sowohl schnell als auch korrekt.
     `);
 }
 
@@ -312,9 +316,9 @@ function practice_eval() {
     }
     if (is_valid == false) {
         let feedback_text =
-            "You will have to repeat this practice round, because of too few correct responses for " +
-            types_failed.join(" and ") +
-            ".<br><br>You can see again the instructions below as reminder.<br><hr>";
+            "Du musst die Übungsrunde wiederholen, da du zu wenig korrekte Antworten für " +
+            types_failed.join(" und ") +
+            " hast.<br><br>Zur Erinnerung siehst du unten noch einmal die Instruktionen.<br><hr>";
         $("#feedback_id").html(feedback_text);
     }
     return is_valid;
@@ -462,4 +466,6 @@ $(document).ready(function() {
     });
 });
 
-let countrs = ["Austria", "Germany", "Switzerland", "Italy", "Hungary", "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burma", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Vatican City", "Honduras", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Ivory Coast", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea ", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea ", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Swaziland", "Sweden", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"];
+let countrs = ["Österreich", "Afghanistan", "Albanien", "Algerien", "Andorra", "Angola", "Antigua und Barbuda", "Argentinien", "Armenien", "Aserbaidschan", "Australien", "Bahamas", "Bahrain", "Bangladesch", "Barbados", "Belarus", "Belgien", "Belize", "Benin", "Bhutan", "Bolivien", "Bosnien und Herzegowina", "Botswana", "Brasilien", "Brunei", "Bulgarien", "Burkina Faso", "Burma", "Burundi", "Chile", "China", "Costa Rica", "Deutschland", "Dominica", "Dominikanische Republik", "Dschibuti", "Dänemark", "Ecuador", "El Salvador", "Elfenbeinküste", "Eritrea", "Estland", "Fidschi", "Finnland", "Frankreich", "Gabun", "Gambia", "Georgien", "Ghana", "Grenada", "Griechenland", "Guatemala", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras", "Hongkong", "Indien", "Indonesien", "Irak", "Iran", "Irland", "Island", "Israel", "Italien", "Jamaika", "Japan", "Jemen", "Jordanien", "Kambodscha", "Kamerun", "Kanada", "Kap Verde", "Kasachstan", "Katar", "Kenia", "Kirgisistan", "Kiribati", "Kolumbien", "Komoren", "Kongo", "Kosovo", "Kroatien", "Kuba", "Kuwait", "Laos", "Lesotho", "Lettland", "Libanon", "Liberia", "Libyen", "Liechtenstein", "Litauen", "Luxemburg", "Macau", "Madagaskar", "Malawi", "Malaysia", "Malediven", "Mali", "Malta", "Marokko", "Marshallinseln", "Mauretanien", "Mauritius", "Mazedonien", "Mexiko", "Mikronesien", "Moldawien", "Monaco", "Mongolei", "Montenegro", "Mosambik", "Namibia", "Nauru", "Nepal", "Neuseeland", "Nicaragua", "Niederlande", "Niger", "Nigeria", "Nordkorea", "Norwegen", "Oman", "Pakistan", "Palau", "Panama", "Papua-Neuguinea", "Paraguay", "Peru", "Philippinen", "Polen", "Portugal", "Ruanda", "Rumänien", "Russland", "Salomonen", "Sambia", "Samoa", "San Marino", "Saudi-Arabien", "Schweden", "Schweiz", "Senegal", "Serbien", "Seychellen", "Sierra Leone", "Simbabwe", "Singapur", "Slowakei", "Slowenien", "Somalia", "Spanien", "Sri Lanka", "St. Kitts und Nevis", "St. Lucia", "St. Vincent", "Sudan", "Surinam", "Swasiland", "Syrien", "São Tomé und Príncipe", "Südafrika", "Südkorea", "Südsudan", "Tadschikistan", "Taiwan", "Tansania", "Thailand", "Timor Leste", "Togo", "Tonga", "Trinidad und Tobago", "Tschad", "Tschechische Republik", "Tunesien", "Turkmenistan", "Tuvalu", "Türkei", "Uganda", "Ukraine", "Ungarn", "Uruguay", "Usbekistan", "Vanuatu", "Vatikanstadt", "Venezuela", "Vereinigte Arabische Emirate", "Vereinigte Staaten", "Vereinigtes Königreich", "Vietnam", "Zentralafrikanische Republik", "Zypern", "Ägypten", "Äquatorialguinea", "Äthiopien"];
+
+//["Österreich", "Deutschland", "Schweiz", "Italien", "Ungarn", "Afghanistan", "Albanien", "Algerien", "Andorra", "Angola", "Antigua und Barbuda", "Argentinien", "Armenien", "Australien", "Aserbaidschan", "Bahamas", "Bahrain", "Bangladesch", "Barbados", "Belarus", "Belgien", "Belize", "Benin", "Bhutan", "Bolivien", "Bosnien und Herzegowina", "Botswana", "Brasilien", "Brunei", "Bulgarien", "Burkina Faso", "Burma", "Burundi", "Kap Verde", "Kambodscha", "Kamerun", "Kanada", "Zentralafrikanische Republik", "Tschad", "Chile", "China", "Kolumbien", "Komoren", "Kongo", "Costa Rica", "Kroatien", "Kuba", "Zypern", "Tschechische Republik", "Dänemark", "Dschibuti", "Dominica", "Dominikanische Republik", "Ecuador", "Ägypten", "El Salvador", "Äquatorialguinea", "Eritrea", "Estland", "Äthiopien", "Fidschi", "Finnland", "Frankreich", "Gabun", "Gambia", "Georgien", "Ghana", "Griechenland", "Grenada", "Guatemala", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Vatikanstadt", "Honduras", "Island", "Indien", "Indonesien", "Iran", "Irak", "Irland", "Israel", "Italien", "Elfenbeinküste", "Jamaika", "Japan", "Jordanien", "Kasachstan", "Kenia", "Kiribati", "Kosovo", "Kuwait", "Kirgisistan", "Laos", "Lettland", "Libanon", "Lesotho", "Liberia", "Libyen", "Liechtenstein", "Litauen", "Luxemburg", "Mazedonien", "Madagaskar", "Malawi", "Malaysia", "Malediven", "Mali", "Malta", "Marshallinseln", "Mauretanien", "Mauritius", "Mexiko", "Mikronesien", "Moldawien", "Monaco", "Mongolei", "Montenegro", "Marokko", "Mosambik", "Namibia", "Nauru", "Nepal", "Niederlande", "Neuseeland", "Nicaragua", "Niger", "Nigeria", "Nordkorea", "Norwegen", "Oman", "Pakistan", "Palau", "Panama", "Papua-Neuguinea", "Paraguay", "Peru", "Philippinen", "Polen", "Portugal", "Katar", "Rumänien", "Russland", "Ruanda", "St. Kitts und Nevis", "St. Lucia", "St. Vincent", "Samoa", "San Marino", "São Tomé und Príncipe", "Saudi-Arabien", "Senegal", "Serbien", "Seychellen", "Sierra Leone", "Singapur", "Slowakei", "Slowenien", "Salomonen", "Somalia", "Südafrika", "Südkorea", "Südsudan", "Spanien", "Sri Lanka", "Sudan", "Surinam", "Swasiland", "Schweden", "Syrien", "Tadschikistan", "Tansania", "Thailand", "Timor Leste", "Togo", "Tonga", "Trinidad und Tobago", "Tunesien", "Türkei", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "Vereinigte Arabische Emirate", "Vereinigtes Königreich", "Vereinigte Staaten", "Uruguay", "Usbekistan", "Vanuatu", "Venezuela", "Vietnam", "Jemen", "Sambia", "Simbabwe"];//
