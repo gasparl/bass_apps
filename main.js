@@ -235,13 +235,16 @@ function names_to_dicts(thefilenames) {
             'file': fname
         };
         fname = fname.slice(0, -4);
+        let splitted;
         if (fname.indexOf("_p_") !== -1) {
             newdict.valence = 'positive';
-            newdict.color = fname.split("_p_")[1];
+            splitted = fname.split("_p_");
         } else {
             newdict.valence = 'negative';
-            newdict.color = fname.split("_n_")[1];
+            splitted = fname.split("_n_");
         }
+        newdict.name = splitted[0];
+        newdict.color = splitted[1];
         dict_list.push(newdict);
     });
     return dict_list;
@@ -409,14 +412,14 @@ function nextblock() {
             } else {
                 crrnt_phase = 'bws';
             }
-            teststim = names_to_dicts(stim_main1);
+            teststim = get_main(stim_main1);
         } else {
             if (first_type == 'color') {
                 crrnt_phase = 'bws';
             } else {
                 crrnt_phase = 'colors';
             }
-            teststim = names_to_dicts(stim_main2);
+            teststim = get_main(stim_main2);
         }
         // teststim = teststim.slice(-6);
         rt_data_dict = {};
@@ -439,6 +442,55 @@ function runblock() {
     document.documentElement.style.cursor = 'none';
     window.scrollTo(0, 0);
     can_start = true;
+}
+
+function get_main(thefilenams) {
+    console.log('get_main()');
+    let blck_itms_temp = names_to_dicts(thefilenams);
+    blck_itms_temp = shuffle(blck_itms_temp); // shuffle it, why not
+    let safecount = 0; // just to not freeze the app if sth goes wrong
+    let stim_dicts_f = []; // in here the final list of dictionary items is collected, one by one
+    while (blck_itms_temp.length > 0) { // stop if all items from blck_itms_temp were use up
+        let dict_item = blck_itms_temp[0];
+        safecount++;
+        if (safecount > 9911) {
+            console.log('break due to unfeasable safecount');
+            break;
+        }
+        let good_indexes = []; // will collect the indexes where the dict item may be inserted
+        let dummy_dict = [{
+            'item': '-',
+            'type': '-'
+        }]; // dummy dict to the end
+        let stim_dicts_f_d = stim_dicts_f.concat(dummy_dict);
+        stim_dicts_f_d.forEach((f_item, f_index) => {
+            if (!diginto_dict(stim_dicts_f, f_index, 'name', 20).includes(dict_item.name)) {
+                good_indexes.push(f_index); // if fine, do add as good index
+            }
+        });
+        if (good_indexes.length == 0) {
+            if (safecount > 99) {
+                console.log('no good_indexes - count', safecount);
+            }
+            blck_itms_temp = shuffle(blck_itms_temp); // reshuffle
+        } else { // if there are good places, choose one randomly, insert the new item, and remove it from blck_itms_temp
+            stim_dicts_f.splice(rchoice(good_indexes), 0, blck_itms_temp.shift());
+        }
+    }
+    console.log('safe count:', safecount);
+    return (stim_dicts_f); // return final list (for blck_items let assignment)
+}
+
+
+function diginto_dict(dcts, indx, key_name, min_dstnc) {
+    let strt;
+    if (indx - min_dstnc < 0) { // if starting index is negative, it counts from the end of the list; thats no good
+        strt = 0; // so if negative, we just set it to 0
+    } else {
+        strt = indx - min_dstnc; // if not negative, it can remain the same
+    }
+    let all_vals = dcts.slice(strt, indx + min_dstnc).map(a => a[key_name]);
+    return (all_vals); // return all values for the specified dict key within the specified distance (from the specified dictionary)
 }
 
 $(document).ready(function() {
