@@ -48,7 +48,8 @@ function validate_form(form_class) {
             $('input[name=gender]:checked').val() != undefined &&
             $("#age").val() != '' &&
             $("#country").val() != '')) {
-        $("#div_intro_dems").hide();
+        $("#div_intro_dems").hide();        
+        open_fulls();
         window.scrollTo(0, 0);
         nextblock();
     } else {
@@ -395,7 +396,6 @@ let prc_num = 0;
 
 function nextblock() {
     document.documentElement.style.cursor = 'auto';
-    open_fulls();
     if (blocknum <= 3) {
         block_trialnum = 0;
         if (blocknum == 1) {
